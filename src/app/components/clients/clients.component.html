@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">
+                    <h3 *ngIf="!isEditClient">Registrar cliente</h3>
+                    <h3 *ngIf="isEditClient">Modificar cliente</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="clientForm">
+                        <div class="form-group">
+                            <input type="hidden" formContorlName="ClientId">
+                            <input type="text" formControlName="FirstName" [class]="isValidField('FirstName')" 
+                            class="form-control" placeholder="Escribe tu nombre">
+                            <div class="invalid-feedback">
+                                <span *ngIf="clientForm.get('FirstName').errors?.required">Este campo es requerido</span>
+                                <span *ngIf="clientForm.get('FirstName').errors?.minlength">Escribe al menos 3 carácteres</span>
+                                <span *ngIf="clientForm.get('FirstName').errors?.maxlength">Escribe solo 30 carácteres</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" formControlName="LastName" [class]="isValidField('LastName')"
+                            class="form-control" placeholder="Escribe tu apellido">
+                            <div class="invalid-feedback">
+                                <span *ngIf="clientForm.get('LastName').errors?.required">Este campo es requerido</span>
+                                <span *ngIf="clientForm.get('LastName').errors?.minlength">Escribe al menos 3 carácteres</span>
+                                <span *ngIf="clientForm.get('LastName').errors?.maxlength">Escribe solo 30 carácteres</span>
+                            </div>
+                        </div>
+                        <button *ngIf="!isEditClient" type="button" class="btn btn-outline-success btn-block" 
+                        (click)="saveClient()" [disabled]="clientForm.invalid">
+                            Registrar cliente
+                        </button>
+                        <button type="button" class="btn btn-outline-success btn-block" 
+                        (click)="updateClient()" *ngIf="isEditClient" [disabled]="clientForm.invalid">
+                            Guardar cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">
+                    <h3>Listado de clientes</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th>No.</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients, let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{client.firstName}} {{client.lastName}}</td>
+                                <td>
+                                    <button class="btn btn-outline-success mx-2"
+                                    (click)="goToAddresses(i)">Ver direcciones</button>
+                                    <button class="btn btn-outline-warning mx-2"
+                                    (click)="fillClientFormWithData(i)">Editar</button>
+                                    <button class="btn btn-outline-danger mx-2" 
+                                    (click)="deleteClient(i)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

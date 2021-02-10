@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row mt-2">
+        <a [routerLink]="['/clients']" class="btn btn-outline-danger">Atrás</a>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">
+                    <h3>Agregar dirección</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="addressForm">
+                        <div class="form-group">
+                            <input type="text" formControlName="City" [class]="isValidField('City')" 
+                            class="form-control" placeholder="Escribe la ciudad">
+                            <div class="invalid-feedback">
+                                <span *ngIf="addressForm.get('City').errors?.required">Este campo es requerido</span>
+                                <span *ngIf="addressForm.get('City').errors?.minlength">Escribe al menos 3 carácteres</span>
+                                <span *ngIf="addressForm.get('City').errors?.maxlength">Escribe menos de 30 carácteres</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" formControlName="Country" [class]="isValidField('Country')" 
+                            class="form-control" placeholder="Escribe el país">
+                            <div class="invalid-feedback">
+                                <span *ngIf="addressForm.get('Country').errors?.required">Este campo es requerido</span>
+                                <span *ngIf="addressForm.get('Country').errors?.minlength">Escribe al menos 3 carácteres</span>
+                                <span *ngIf="addressForm.get('Country').errors?.maxlength">Escribe menos de 30 carácteres</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" formControlName="PostalCode" [class]="isValidField('PostalCode')"
+                            class="form-control" placeholder="Escribe el código postal">
+                            <div class="invalid-feedback">
+                                <span *ngIf="addressForm.get('PostalCode').errors?.pattern">Solo puedes escribir números</span>
+                            </div>
+                        </div>
+    
+                        <button class="btn btn-outline-success btn-block"
+                        (click)="saveAddress()" [disabled]="addressForm.invalid">
+                            Guardar dirección
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">
+                    <h3>Listado de direcciones</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th>No.</th>
+                                <th>Ciudad</th>
+                                <th>País</th>
+                                <th>Código postal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let address of addresses, let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{address.city}}</td>
+                                <td>{{address.country}}</td>
+                                <td>{{address.postalCode}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
