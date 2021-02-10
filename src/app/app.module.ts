@@ -7,12 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClientsComponent } from './components/clients/clients.component';
 import { AddressesComponent } from './components/addresses/addresses.component';
+import { HeaderComponent } from './components/shared/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientsComponent,
-    AddressesComponent
+    AddressesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

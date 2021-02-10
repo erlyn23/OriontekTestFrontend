@@ -54,7 +54,7 @@ export class AddressesComponent implements OnInit {
     const validatedField = this.addressForm.get(field);
 
     return (!validatedField.valid && validatedField.touched) ?
-    'is-valid' : validatedField.touched ? 'is-valid' : '';
+    'is-invalid' : validatedField.touched ? 'is-valid' : '';
   }
 
   saveAddress():void{
